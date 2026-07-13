@@ -85,17 +85,24 @@ app.use((err, req, res, next) => {
   });
 });
 
-/* ---------------- Start Application Server ---------------- */
+/* ---------------- Start Application Server (Local Only) ---------------- */
 
-/* ---------------- Start Application Server ---------------- */
+// Vercel handles requests without spinning up a constant port listener.
+// This check ensures ports and web sockets only run when you are testing locally.
+if (process.env.NODE_ENV !== 'production') {
+  const PORT = process.env.PORT || 5000;
 
-const PORT = process.env.PORT || 5000;
+  // Save the returned server instance into a variable named "server"
+  const server = app.listen(PORT, () => {
+    console.log(`Server is running securely on port ${PORT}`);
+  });
 
-// Save the returned server instance into a variable named "server"
-const server = app.listen(PORT, () => {
-  console.log(`Server is running securely on port ${PORT}`);
-});
+  // Now "server" is defined and can be safely passed to your socket initializer
+  const { initializeSocket } = require("./socket/socket");
+  initializeSocket(server);
+}
 
-// Now "server" is defined and can be safely passed to your socket initializer
-const { initializeSocket } = require("./socket/socket");
-initializeSocket(server);
+/* ---------------- Export Application Module ---------------- */
+
+// CRUCIAL: Export the app module so Vercel can wrap it as a serverless function
+module.exports = app;
