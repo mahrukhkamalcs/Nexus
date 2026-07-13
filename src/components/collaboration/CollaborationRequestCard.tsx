@@ -6,8 +6,8 @@ import { Card, CardBody, CardFooter } from '../ui/Card';
 import { Avatar } from '../ui/Avatar';
 import { Badge } from '../ui/Badge';
 import { Button } from '../ui/Button';
-import { findUserById } from '../../data/users';
-import { updateRequestStatus } from '../../data/collaborationRequests';
+import { findUserById } from '../../api/users';
+import { updateRequestStatus } from '../../api/collaborationRequests';
 import { formatDistanceToNow } from 'date-fns';
 
 interface CollaborationRequestCardProps {

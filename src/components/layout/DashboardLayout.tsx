@@ -15,9 +15,9 @@ export const DashboardLayout: React.FC = () => {
     );
   }
   
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
+  //if (!isAuthenticated) {
+    //return <Navigate to="/login" replace />;
+  //}
   
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
